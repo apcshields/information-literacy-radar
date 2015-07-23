@@ -1,0 +1,355 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bower_components/radar-chart-d3/src/radar-chart.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <style>
+          /* <![CDATA[ */
+            body {
+              padding: 1.5em;
+            }
+
+            .radar-chart-serie1 {
+              fill: rgb(27,158,119);
+              stroke: rgb(27,158,119);
+              fill: black;
+              stroke: black;
+            }
+
+            .radar-chart-serie2 {
+              fill: rgb(217,95,2);
+              stroke: rgb(217,95,2);
+              fill: black;
+              stroke: black;
+            }
+
+            .radar-chart-serie3 {
+              fill: rgb(117,112,179);
+              stroke: rgb(117,112,179);
+              fill: black;
+              stroke: black;
+            }
+
+            .radar-chart-serie4 {
+              fill: rgb(231,41,138);
+              stroke: rgb(231,41,138);
+              fill: black;
+              stroke: black;
+            }
+
+            .radar-chart-serie5 {
+              fill: rgb(102,166,30);
+              stroke: rgb(102,166,30);
+              fill: black;
+              stroke: black;
+            }
+
+            .radar-chart-serie6 {
+              fill: rgb(230,171,2);
+              stroke: rgb(230,171,2);
+              fill: black;
+              stroke: black;
+            }
+
+            .radar-chart-serie7 {
+              fill: rgb(166,118,29);
+              stroke: rgb(166,118,29);
+              fill: black;
+              stroke: black;
+            }
+
+            .radar-chart-serie8 {
+              fill: rgb(102,102,102);
+              stroke: rgb(102,102,102);
+              fill: black;
+              stroke: black;
+            }
+          /* ]]> */
+        </style>
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container-fluid">
+          <div class="row">
+            <div id="chart" class="col-md-6"></div>
+            <div id="data" class="col-md-6">
+              <table id="data-table" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <td>Class</td>
+                    <td>Authority</td>
+                    <td>Format</td>
+                    <td>Information commodities</td>
+                    <td>Research process</td>
+                    <td>Scholarly discourse</td>
+                    <td>Searching</td>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="bower_components/d3/d3.min.js"></script>
+        <script src="bower_components/radar-chart-d3/src/radar-chart.min.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+          /* <![CDATA[ */
+            var data = [
+              {
+                className: "Introductory Activity",
+                axes: [
+                  {
+                    axis: "Authority",
+                    value: 2
+                  },
+                  {
+                    axis: "Format",
+                    value: 2.67
+                  },
+                  {
+                    axis: "Information commodities",
+                    value: 2
+                  },
+                  {
+                    axis: "Research process",
+                    value: 4
+                  },
+                  {
+                    axis: "Scholarly discourse",
+                    value: 1.67
+                  },
+                  {
+                    axis: "Searching",
+                    value: 4
+                  }
+                ]
+              },
+              {
+                className: "Online Tutorial",
+                axes: [
+                  {
+                    axis: "Authority",
+                    value: 4
+                  },
+                  {
+                    axis: "Format",
+                    value: 4.33
+                  },
+                  {
+                    axis: "Information commodities",
+                    value: 2.33
+                  },
+                  {
+                    axis: "Research process",
+                    value: 2
+                  },
+                  {
+                    axis: "Scholarly discourse",
+                    value: 2.33
+                  },
+                  {
+                    axis: "Searching",
+                    value: 4
+                  }
+                ]
+              },
+              {
+                className: "Core 100 (Academic Integrity session)",
+                axes: [
+                  {
+                    axis: "Authority",
+                    value: 3
+                  },
+                  {
+                    axis: "Format",
+                    value: 2
+                  },
+                  {
+                    axis: "Information commodities",
+                    value: 3.67
+                  },
+                  {
+                    axis: "Research process",
+                    value: 2.67
+                  },
+                  {
+                    axis: "Scholarly discourse",
+                    value: 4.67
+                  },
+                  {
+                    axis: "Searching",
+                    value: 1
+                  }
+                ]
+              },
+              {
+                className: "Core 100 (Library session)",
+                axes: [
+                  {
+                    axis: "Authority",
+                    value: 4
+                  },
+                  {
+                    axis: "Format",
+                    value: 4.67
+                  },
+                  {
+                    axis: "Information commodities",
+                    value: 2
+                  },
+                  {
+                    axis: "Research process",
+                    value: 3.33
+                  },
+                  {
+                    axis: "Scholarly discourse",
+                    value: 2.33
+                  },
+                  {
+                    axis: "Searching",
+                    value: 4.33
+                  }
+                ]
+              },
+              {
+                className: "Core 100 (Library assignment)",
+                axes: [
+                  {
+                    axis: "Authority",
+                    value: 4
+                  },
+                  {
+                    axis: "Format",
+                    value: 3
+                  },
+                  {
+                    axis: "Information commodities",
+                    value: 3.67
+                  },
+                  {
+                    axis: "Research process",
+                    value: 4.33
+                  },
+                  {
+                    axis: "Scholarly discourse",
+                    value: 4.33
+                  },
+                  {
+                    axis: "Searching",
+                    value: 4.33
+                  }
+                ]
+              },
+              {
+                className: "First Year Writing Courses",
+                axes: [
+                  {
+                    axis: "Authority",
+                    value: 3.5
+                  },
+                  {
+                    axis: "Format",
+                    value: 2
+                  },
+                  {
+                    axis: "Information commodities",
+                    value: 5
+                  },
+                  {
+                    axis: "Research process",
+                    value: 2.33
+                  },
+                  {
+                    axis: "Scholarly discourse",
+                    value: 2.33
+                  },
+                  {
+                    axis: "Searching",
+                    value: 3.67
+                  }
+                ]
+              },
+              {
+                className: "Core Perspective Courses",
+                axes: [
+                  {
+                    axis: "Authority",
+                    value: 4.33
+                  },
+                  {
+                    axis: "Format",
+                    value: 2.67
+                  },
+                  {
+                    axis: "Information commodities",
+                    value: 3
+                  },
+                  {
+                    axis: "Research process",
+                    value: 3.67
+                  },
+                  {
+                    axis: "Scholarly discourse",
+                    value: 4.67
+                  },
+                  {
+                    axis: "Searching",
+                    value: 4.67
+                  }
+                ]
+              }
+            ];
+
+            // Fill table
+            var table = $('#data-table tbody');
+
+            for (var datumIndex = 0, dataLength = data.length; datumIndex < dataLength; datumIndex++) {
+              var row = $(document.createElement('tr'));
+
+              row.append($(document.createElement('td')).text(data[datumIndex].className))
+
+              for (var valueIndex = 0, valueLength = data[datumIndex].axes.length; valueIndex < valueLength; valueIndex++) {
+                row.append($(document.createElement('td')).text(data[datumIndex].axes[valueIndex].value))
+              }
+
+              table.append(row)
+            }
+
+            // Make chart
+            var chart = RadarChart.chart();
+            var svg = d3.select('#chart').append('svg')
+              .attr('width', "100%")
+              .attr('height', 800);
+
+            chart.config({
+              levels: 5,
+              maxValue: 5,
+              color: $.noop
+            });
+
+            svg.append('g')
+              .classed('focus', 1)
+              .datum(data)
+              .call(chart);
+          /* ]]> */
+        </script>
+    </body>
+</html>
