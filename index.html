@@ -9,7 +9,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="bower_components/radar-chart-d3/src/radar-chart.min.css">
+        <link rel="stylesheet" href="temp/radar-chart.css">
         <link rel="stylesheet" href="css/main.css">
         <style>
           /* <![CDATA[ */
@@ -108,226 +108,61 @@
         <script src="js/plugins.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="bower_components/d3/d3.min.js"></script>
-        <script src="bower_components/radar-chart-d3/src/radar-chart.min.js"></script>
+        <script src="temp/radar-chart.js"></script>
         <script src="js/main.js"></script>
         <script>
           /* <![CDATA[ */
-            var data = [
-              {
-                className: "Introductory Activity",
-                axes: [
-                  {
-                    axis: "Authority",
-                    value: 2
-                  },
-                  {
-                    axis: "Format",
-                    value: 2.67
-                  },
-                  {
-                    axis: "Information commodities",
-                    value: 2
-                  },
-                  {
-                    axis: "Research process",
-                    value: 4
-                  },
-                  {
-                    axis: "Scholarly discourse",
-                    value: 1.67
-                  },
-                  {
-                    axis: "Searching",
-                    value: 4
-                  }
-                ]
-              },
-              {
-                className: "Online Tutorial",
-                axes: [
-                  {
-                    axis: "Authority",
-                    value: 4
-                  },
-                  {
-                    axis: "Format",
-                    value: 4.33
-                  },
-                  {
-                    axis: "Information commodities",
-                    value: 2.33
-                  },
-                  {
-                    axis: "Research process",
-                    value: 2
-                  },
-                  {
-                    axis: "Scholarly discourse",
-                    value: 2.33
-                  },
-                  {
-                    axis: "Searching",
-                    value: 4
-                  }
-                ]
-              },
-              {
-                className: "Core 100 (Academic Integrity session)",
-                axes: [
-                  {
-                    axis: "Authority",
-                    value: 3
-                  },
-                  {
-                    axis: "Format",
-                    value: 2
-                  },
-                  {
-                    axis: "Information commodities",
-                    value: 3.67
-                  },
-                  {
-                    axis: "Research process",
-                    value: 2.67
-                  },
-                  {
-                    axis: "Scholarly discourse",
-                    value: 4.67
-                  },
-                  {
-                    axis: "Searching",
-                    value: 1
-                  }
-                ]
-              },
-              {
-                className: "Core 100 (Library session)",
-                axes: [
-                  {
-                    axis: "Authority",
-                    value: 4
-                  },
-                  {
-                    axis: "Format",
-                    value: 4.67
-                  },
-                  {
-                    axis: "Information commodities",
-                    value: 2
-                  },
-                  {
-                    axis: "Research process",
-                    value: 3.33
-                  },
-                  {
-                    axis: "Scholarly discourse",
-                    value: 2.33
-                  },
-                  {
-                    axis: "Searching",
-                    value: 4.33
-                  }
-                ]
-              },
-              {
-                className: "Core 100 (Library assignment)",
-                axes: [
-                  {
-                    axis: "Authority",
-                    value: 4
-                  },
-                  {
-                    axis: "Format",
-                    value: 3
-                  },
-                  {
-                    axis: "Information commodities",
-                    value: 3.67
-                  },
-                  {
-                    axis: "Research process",
-                    value: 4.33
-                  },
-                  {
-                    axis: "Scholarly discourse",
-                    value: 4.33
-                  },
-                  {
-                    axis: "Searching",
-                    value: 4.33
-                  }
-                ]
-              },
-              {
-                className: "First Year Writing Courses",
-                axes: [
-                  {
-                    axis: "Authority",
-                    value: 3.5
-                  },
-                  {
-                    axis: "Format",
-                    value: 2
-                  },
-                  {
-                    axis: "Information commodities",
-                    value: 5
-                  },
-                  {
-                    axis: "Research process",
-                    value: 2.33
-                  },
-                  {
-                    axis: "Scholarly discourse",
-                    value: 2.33
-                  },
-                  {
-                    axis: "Searching",
-                    value: 3.67
-                  }
-                ]
-              },
-              {
-                className: "Core Perspective Courses",
-                axes: [
-                  {
-                    axis: "Authority",
-                    value: 4.33
-                  },
-                  {
-                    axis: "Format",
-                    value: 2.67
-                  },
-                  {
-                    axis: "Information commodities",
-                    value: 3
-                  },
-                  {
-                    axis: "Research process",
-                    value: 3.67
-                  },
-                  {
-                    axis: "Scholarly discourse",
-                    value: 4.67
-                  },
-                  {
-                    axis: "Searching",
-                    value: 4.67
-                  }
-                ]
-              }
-            ];
+            var data = {
+              axes: [
+                'Authority',
+                'Format',
+                'Information commodities',
+                'Research process',
+                'Scholarly discourse',
+                'Searching'
+              ],
+              data: [
+                {
+                  className: 'Introductory Activity',
+                  values: [2, 2.67, 2, 4, 1.67, 4]
+                },
+                {
+                  className: 'Online Tutorial',
+                  values: [4, 4.33, 2.33, 2, 2.33, 4]
+                },
+                {
+                  className: 'Core 100 (Academic Integrity session)',
+                  values: [3, 2, 3.67, 2.67, 4.67, 1]
+                },
+                {
+                  className: 'Core 100 (Library session)',
+                  values: [4, 4.67, 2, 3.33, 2.33, 4.33]
+                },
+                {
+                  className: 'Core 100 (Library assignment)',
+                  values: [4, 3, 3.67, 4.33, 4.33, 4.33]
+                },
+                {
+                  className: 'First Year Writing Courses',
+                  values: [3.5, 2, 5, 2.33, 2.33, 3.67]
+                },
+                {
+                  className: 'Core Perspective Courses',
+                  values: [4.33, 2.67, 3, 3.67, 4.67, 4.67]
+                }
+              ]
+            }
 
             // Fill table
             var table = $('#data-table tbody');
 
-            for (var datumIndex = 0, dataLength = data.length; datumIndex < dataLength; datumIndex++) {
+            for (var datumIndex = 0, dataLength = data.data.length; datumIndex < dataLength; datumIndex++) {
               var row = $(document.createElement('tr'));
 
-              row.append($(document.createElement('td')).text(data[datumIndex].className))
+              row.append($(document.createElement('td')).text(data.data[datumIndex].className))
 
-              for (var valueIndex = 0, valueLength = data[datumIndex].axes.length; valueIndex < valueLength; valueIndex++) {
-                row.append($(document.createElement('td')).text(data[datumIndex].axes[valueIndex].value))
+              for (var valueIndex = 0, valueLength = data.data[datumIndex].values.length; valueIndex < valueLength; valueIndex++) {
+                row.append($(document.createElement('td')).text(data.data[datumIndex].values[valueIndex]))
               }
 
               table.append(row)
@@ -341,8 +176,8 @@
 
             chart.config({
               levels: 5,
-              maxValue: 5,
-              color: $.noop
+              maxValue: 5
+              // color: $.noop
             });
 
             svg.append('g')
