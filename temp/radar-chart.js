@@ -203,6 +203,7 @@ var RadarChart = {
 
           return d;
         });
+        /*
         var polygon = container.selectAll(".area").data(data.data, cfg.axisJoin);
 
         polygon.enter().append('polygon')
@@ -241,6 +242,53 @@ var RadarChart = {
             // svg attrs with js
             .attr('points',function(d) {
               return d.values.map(function(p) {
+                return [p.x, p.y].join(',');
+              }).join(' ');
+            })
+            .each('start', function() {
+              d3.select(this).classed('d3-enter', 0); // trigger css transition
+            });
+        */
+
+        var maxValuesByDimension = d3.range(allAxis.length).map(function() {
+          return { value: 0, x: 0, y: 0 };
+        });
+
+        data.data.forEach(function(d, i) {
+          d.values.forEach(function(value, dimension) {
+            if (maxValuesByDimension[dimension].value < value.value) {
+              maxValuesByDimension[dimension] = value;
+            }
+          });
+        });
+
+        var polygon = container.selectAll(".area").data([maxValuesByDimension]);
+
+        polygon.enter().append('polygon')
+          .classed({area: 1, 'd3-enter': 1});
+
+        polygon.exit()
+          .classed('d3-exit', 1) // trigger css transition
+          .transition().duration(cfg.transitionDuration)
+            .remove();
+
+        polygon
+          .each(function(d, i) {
+            var classed = {'d3-exit': 0}; // if exiting element is being reused
+            classed['radar-chart-serie' + i] = 1;
+            if(d.className) {
+              classed[d.className] = 1;
+            }
+            d3.select(this).classed(classed);
+          })
+          // styles should only be transitioned with css
+          .style('stroke', function(d, i) { return 'green'; })
+          .style('fill', function(d, i) { return 'green'; })
+          .style('fill-opacity', function(d, i) { return 0.5; })
+          .transition().duration(cfg.transitionDuration)
+            // svg attrs with js
+            .attr('points',function(d) {
+              return d.map(function(p) {
                 return [p.x, p.y].join(',');
               }).join(' ');
             })
