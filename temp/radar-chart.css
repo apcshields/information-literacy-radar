@@ -1,6 +1,11 @@
 .radar-chart .level {
   stroke: grey;
-  stroke-width: 0.5;
+  stroke-width: 1;
+  fill-opacity: 0;
+}
+
+.radar-chart .sublevel {
+  opacity: 0.5;
 }
 
 .radar-chart .axis line {

@@ -6,8 +6,7 @@ var RadarChart = {
     factor: 0.95,
     factorLegend: 1,
     levels: 3,
-    levelTick: false,
-    TickLength: 10,
+    sublevels: 1,
     maxValue: 0,
     radians: 2 * Math.PI,
     color: d3.scale.category10(),
@@ -83,7 +82,10 @@ var RadarChart = {
 
         // levels && axises
         var levelFactors = d3.range(0, cfg.levels).map(function(level) {
-          return radius * ((level + 1) / cfg.levels);
+          return d3.range(0, cfg.sublevels + 1).map(function(sublevel) {
+            return (level + ((sublevel +1 ) / (cfg.sublevels + 1))) * radius / cfg.levels;
+          });
+          return [radius * ((level + 1) / cfg.levels)];
         });
 
         var levelGroups = container.selectAll('g.level-group').data(levelFactors);
@@ -96,58 +98,27 @@ var RadarChart = {
         });
 
         var levelLine = levelGroups.selectAll('.level').data(function(levelFactor) {
-          return d3.range(0, total).map(function() { return levelFactor; });
+          return levelFactor;
         });
 
-        levelLine.enter().append('line');
+        levelLine.enter().append('circle');
         levelLine.exit().remove();
 
-        if (cfg.levelTick){
-          levelLine
-          .attr('class', 'level')
-          .attr('x1', function(levelFactor, i){
-            if (radius == levelFactor) {
-              return getHorizontalPosition(i, levelFactor);
-            } else {
-              return getHorizontalPosition(i, levelFactor) + (cfg.TickLength / 2) * Math.cos(i * cfg.radians / total);
-            }
-          })
-          .attr('y1', function(levelFactor, i){
-            if (radius == levelFactor) {
-              return getVerticalPosition(i, levelFactor);
-            } else {
-              return getVerticalPosition(i, levelFactor) - (cfg.TickLength / 2) * Math.sin(i * cfg.radians / total);
-            }
-          })
-          .attr('x2', function(levelFactor, i){
-            if (radius == levelFactor) {
-              return getHorizontalPosition(i+1, levelFactor);
-            } else {
-              return getHorizontalPosition(i, levelFactor) - (cfg.TickLength / 2) * Math.cos(i * cfg.radians / total);
-            }
-          })
-          .attr('y2', function(levelFactor, i){
-            if (radius == levelFactor) {
-              return getVerticalPosition(i+1, levelFactor);
-            } else {
-              return getVerticalPosition(i, levelFactor) + (cfg.TickLength / 2) * Math.sin(i * cfg.radians / total);
-            }
-          })
-          .attr('transform', function(levelFactor) {
-            return 'translate(' + (cfg.w/2-levelFactor) + ', ' + (cfg.h/2-levelFactor) + ')';
-          });
-        }
-        else{
-          levelLine
-          .attr('class', 'level')
-          .attr('x1', function(levelFactor, i){ return getHorizontalPosition(i, levelFactor); })
-          .attr('y1', function(levelFactor, i){ return getVerticalPosition(i, levelFactor); })
-          .attr('x2', function(levelFactor, i){ return getHorizontalPosition(i+1, levelFactor); })
-          .attr('y2', function(levelFactor, i){ return getVerticalPosition(i+1, levelFactor); })
-          .attr('transform', function(levelFactor) {
-            return 'translate(' + (cfg.w/2-levelFactor) + ', ' + (cfg.h/2-levelFactor) + ')';
-          });
-        }
+        levelLine
+        .attr('class', 'level')
+        .classed('sublevel', function(levelFactor, i) {
+          if (i === cfg.sublevels) {
+            return false;
+          }
+
+          return true;
+        })
+        .attr('cx', cfg.w/2)
+        .attr('cy', cfg.h/2)
+        .attr('r', function(levelFactor, i) {
+          return levelFactor;
+        });
+
         if(cfg.axisLine || cfg.axisText) {
           var axis = container.selectAll('.axis').data(allAxis);
 
