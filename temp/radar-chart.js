@@ -256,8 +256,6 @@ if (jQuery) {
       .each(function(d, i) {
         var classed = { 'd3-exit': 0 }; // if exiting element is being reused
 
-        classed['radar-chart-serie' + i] = 1;
-
         if (d.className) {
           classed[d.className] = 1;
         }
@@ -267,7 +265,6 @@ if (jQuery) {
       .transition().duration(chart.config.transitionDuration)
       // svg attrs with js
       .attr('points', function(d) {
-        console.log(d);
         return d.map(function(p) {
           return [p.x, p.y].join(',');
         }).join(' ');
@@ -306,7 +303,7 @@ if (jQuery) {
           return datum.values.map(function(d) { return [d, i]; });
         });
 
-        circles.enter().append('circle')
+        circles.enter().append('path')
         .classed({circle: 1, 'd3-enter': 1})
 
         circles.exit()
@@ -316,18 +313,19 @@ if (jQuery) {
 
         circles
         .each(function(d) {
-          var classed = {'d3-exit': 0}; // if exit element reused
-          classed['radar-chart-serie' + d[1]] = 1;
+          var classed = { 'd3-exit': 0 }; // if exit element reused
+          classed['radar-chart-series'] = 1;
+          classed['radar-chart-series-' + d[1]] = 1;
           d3.select(this).classed(classed);
         })
         .transition().duration(chart.config.transitionDuration)
-        // svg attrs with js
-        .attr('r', chart.config.radius)
-        .attr('cx', function(d) {
-          return d[0].x;
-        })
-        .attr('cy', function(d) {
-          return d[0].y;
+        .attr('d', d3.svg.symbol().type(function(d, i) {
+          var a = d3.svg.symbolTypes[d[1] % d3.svg.symbolTypes.length];
+
+          return a;
+        }))
+        .attr('transform', function(d) {
+          return 'translate(' + d[0].x + ',' + d[0].y + ')';
         })
         .each('start', function() {
           d3.select(this).classed('d3-enter', 0); // trigger css transition

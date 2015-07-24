@@ -39,20 +39,60 @@
   opacity: 1;
 }
 
-/* area transition when hovering */
+/* style chart content */
 .radar-chart .area {
+  fill: green;
+  stroke: green;
   stroke-width: 2;
   fill-opacity: 0.5;
 }
-.radar-chart.focus .area {
-  fill-opacity: 0.1;
-}
-.radar-chart.focus .area.focused {
-  fill-opacity: 0.7;
-}
 
 .radar-chart .circle {
-  fill-opacity: 0.9;
+  stroke: #000000;
+}
+
+.radar-chart .radar-chart-series-0 {
+  fill: #1f77b4;
+}
+
+.radar-chart .radar-chart-series-1 {
+  fill: #ff7f0e;
+}
+
+.radar-chart .radar-chart-series-2 {
+  fill: #2ca02c;
+}
+
+.radar-chart .radar-chart-series-3 {
+  fill: #d62728;
+}
+
+.radar-chart .radar-chart-series-4 {
+  fill: #9467bd;
+}
+
+.radar-chart .radar-chart-series-5 {
+  fill: #8c564b;
+}
+
+.radar-chart .radar-chart-series-6 {
+  fill: #e377c2;
+}
+
+.radar-chart .radar-chart-series-7 {
+  fill: #7f7f7f;
+}
+
+.radar-chart .radar-chart-series-8 {
+  fill: #bcbd22;
+}
+
+.radar-chart .radar-chart-series-9 {
+  fill: #17becf;
+}
+
+.radar-chart .radar-chart-series-10 {
+  fill: #c49c94;
 }
 
 /* transitions */
