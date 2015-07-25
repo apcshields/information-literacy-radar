@@ -16,6 +16,16 @@
             body {
               padding: 1.5em;
             }
+
+            .series {
+              border-right: none !important;
+
+              vertical-align: middle !important;
+            }
+
+            .learning-objective {
+              border-left: none !important;
+            }
           /* ]]> */
         </style>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -32,7 +42,7 @@
               <table id="data-table" class="table table-bordered table-hover">
                 <thead>
                   <tr>
-                    <td>Learning Objective</td>
+                    <td colspan="2">Learning Objective</td>
                     <td>Authority is constructed and contextual</td>
                     <td>Information creation as a process</td>
                     <td>Information has value</td>
@@ -103,10 +113,11 @@
             for (var datumIndex = 0, dataLength = data.data.length; datumIndex < dataLength; datumIndex++) {
               var row = $(document.createElement('tr'));
 
-              row.append($(document.createElement('td')).text(data.data[datumIndex].className))
+              row.append($(document.createElement('td')).addClass('series'));
+              row.append($(document.createElement('td')).addClass('learning-objective').text(data.data[datumIndex].className));
 
               for (var valueIndex = 0, valueLength = data.data[datumIndex].values.length; valueIndex < valueLength; valueIndex++) {
-                row.append($(document.createElement('td')).text(data.data[datumIndex].values[valueIndex]))
+                row.append($(document.createElement('td')).text(data.data[datumIndex].values[valueIndex]));
               }
 
               table.append(row)
@@ -114,8 +125,8 @@
 
             // Make chart
             var svg = d3.select('#chart').append('svg')
-              .attr('width', "100%")
-              .attr('height', 800);
+            .attr('width', "100%")
+            .attr('height', 800);
 
             config = {
               levels: 5,
@@ -125,11 +136,29 @@
 
             var chart = new RadarChart(svg, data, config);
 
-            var debugRefresh = function() {
-              chart.data = chart.transformData(data.data);
-              chart.maxValuesByDimension = chart.getMaxValuesByDimension(chart.data);
-              chart.updateContentSelections()
-            }
+            // Add series markers to table.
+            var series = d3.selectAll('.series').data(d3.range(0, data.data.length));
+
+            series.each(function(d, i) {
+              var svg = d3.select(this).append('svg');
+
+              svg
+              .attr('width', 20)
+              .attr('height', 20);
+
+              svg.append('path')
+              .classed('circle', 1);
+            });
+
+            d3.select('#data-table').selectAll('.circle').each(function(d) {
+              var classed = { 'radar-chart-series': 1 };
+              classed['radar-chart-series-' + d] = 1;
+              d3.select(this).classed(classed);
+            })
+            .attr('d', d3.svg.symbol().type(function(d, i) {
+              return d3.svg.symbolTypes[d % d3.svg.symbolTypes.length];
+            }))
+            .attr('transform', 'translate(10, 10)');
           /* ]]> */
         </script>
     </body>

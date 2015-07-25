@@ -47,51 +47,52 @@
   fill-opacity: 0.5;
 }
 
-.radar-chart .circle {
+.radar-chart-series.circle {
   stroke: #000000;
+  stroke-width: 0.7px;
 }
 
-.radar-chart .radar-chart-series-0 {
+.radar-chart-series-0 {
   fill: #1f77b4;
 }
 
-.radar-chart .radar-chart-series-1 {
+.radar-chart-series-1 {
   fill: #ff7f0e;
 }
 
-.radar-chart .radar-chart-series-2 {
+.radar-chart-series-2 {
   fill: #2ca02c;
 }
 
-.radar-chart .radar-chart-series-3 {
+.radar-chart-series-3 {
   fill: #d62728;
 }
 
-.radar-chart .radar-chart-series-4 {
+.radar-chart-series-4 {
   fill: #9467bd;
 }
 
-.radar-chart .radar-chart-series-5 {
+.radar-chart-series-5 {
   fill: #8c564b;
 }
 
-.radar-chart .radar-chart-series-6 {
+.radar-chart-series-6 {
   fill: #e377c2;
 }
 
-.radar-chart .radar-chart-series-7 {
+.radar-chart-series-7 {
   fill: #7f7f7f;
 }
 
-.radar-chart .radar-chart-series-8 {
+.radar-chart-series-8 {
   fill: #bcbd22;
 }
 
-.radar-chart .radar-chart-series-9 {
+.radar-chart-series-9 {
   fill: #17becf;
 }
 
-.radar-chart .radar-chart-series-10 {
+.radar-chart-series-10 {
   fill: #c49c94;
 }
 
