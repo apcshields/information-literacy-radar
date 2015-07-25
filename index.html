@@ -113,22 +113,23 @@
             }
 
             // Make chart
-            var chart = RadarChart.chart();
             var svg = d3.select('#chart').append('svg')
               .attr('width', "100%")
               .attr('height', 800);
 
-            chart.config({
+            config = {
               levels: 5,
-              sublevels: 0,
+              sublevels: 3,
               maxValue: 5
-              // color: $.noop
-            });
+            };
 
-            svg.append('g')
-              .classed('focus', 1)
-              .datum(data)
-              .call(chart);
+            var chart = new RadarChart(svg, data, config);
+
+            var debugRefresh = function() {
+              chart.data = chart.transformData(data.data);
+              chart.maxValuesByDimension = chart.getMaxValuesByDimension(chart.data);
+              chart.updateContentSelections()
+            }
           /* ]]> */
         </script>
     </body>
