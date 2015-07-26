@@ -194,26 +194,21 @@ if (jQuery) {
     };
 
     RadarChart.prototype.transformData = function(data) {
-      return data.map(function(d) {
-        d.values = d.values.map(function(value, i) {
-          if (typeof value === 'object') {
-            if (value.value !== void 0) {
-              value = value.value;
-            } else {
-              value = 0;
-            }
-          }
+      return data.map(function(dataset) {
+        var transformedDataset = {
+          className: dataset.className,
+          values: []
+        }
 
-          datum = {
+        transformedDataset.values = dataset.values.map(function(value, i) {
+          return {
             value: value,
             x: (this.config.width / 2) - this.gc.radius + this.getHorizontalPosition(i, this.gc.radius, (parseFloat(Math.max(value, 0)) / this.gc.maxValue) * this.config.factor),
             y: (this.config.height / 2) - this.gc.radius + this.getVerticalPosition(i, this.gc.radius, (parseFloat(Math.max(value, 0)) / this.gc.maxValue) * this.config.factor)
-          };
-
-          return datum;
+          }
         }.bind(this));
 
-        return d;
+        return transformedDataset;
       }.bind(this));
     };
 
