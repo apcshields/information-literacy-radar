@@ -15,6 +15,7 @@
           /* <![CDATA[ */
             body {
               padding: 1.5em;
+              padding-bottom: calc(1.5em + 50px);
             }
 
             thead td {
@@ -29,6 +30,14 @@
 
             .learning-objective {
               border-left: none !important;
+            }
+
+            td:not(.learning-objective) input.form-control {
+              max-width: 4em;
+            }
+
+            .navbar .navbar-right:last-child {
+              margin-right: 0;
             }
           /* ]]> */
         </style>
@@ -55,11 +64,17 @@
                     <td>Searching as strategic exploration</td>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody class="form-inline"></tbody>
               </table>
             </div>
           </div>
         </div>
+
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+          <div class="container-fluid">
+            <p id="permalink-container" class="navbar-text navbar-right"></p>
+          </div>
+        </nav>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
@@ -70,6 +85,7 @@
         <script src="js/main.js"></script>
         <script>
           /* <![CDATA[ */
+            // Set up data.
             var data = {
               axes: [
                 'Authority is constructed and contextual',
@@ -78,61 +94,117 @@
                 'Research as inquiry',
                 'Scholarship as conversation',
                 'Searching as strategic exploration'
-              ],
-              data: [
-                {
-                  className: 'Introductory Activity',
-                  values: [2, 2.67, 2, 4, 1.67, 4]
-                },
-                {
-                  className: 'Online Tutorial',
-                  values: [4, 4.33, 2.33, 2, 2.33, 4]
-                },
-                {
-                  className: 'Core 100 (Academic Integrity session)',
-                  values: [3, 2, 3.67, 2.67, 4.67, 1]
-                },
-                {
-                  className: 'Core 100 (Library session)',
-                  values: [4, 4.67, 2, 3.33, 2.33, 4.33]
-                },
-                {
-                  className: 'Core 100 (Library assignment)',
-                  values: [4, 3, 3.67, 4.33, 4.33, 4.33]
-                },
-                {
-                  className: 'First Year Writing Courses',
-                  values: [3.5, 2, 5, 2.33, 2.33, 3.67]
-                },
-                {
-                  className: 'Core Perspective Courses',
-                  values: [4.33, 2.67, 3, 3.67, 4.67, 4.67]
-                }
               ]
+            };
+
+            var defaultData = [
+              {
+                className: 'Introductory Activity',
+                values: [2, 2.67, 2, 4, 1.67, 4]
+              },
+              {
+                className: 'Online Tutorial',
+                values: [4, 4.33, 2.33, 2, 2.33, 4]
+              },
+              {
+                className: 'Core 100 (Academic Integrity session)',
+                values: [3, 2, 3.67, 2.67, 4.67, 1]
+              },
+              {
+                className: 'Core 100 (Library session)',
+                values: [4, 4.67, 2, 3.33, 2.33, 4.33]
+              },
+              {
+                className: 'Core 100 (Library assignment)',
+                values: [4, 3, 3.67, 4.33, 4.33, 4.33]
+              },
+              {
+                className: 'First Year Writing Courses',
+                values: [3.5, 2, 5, 2.33, 2.33, 3.67]
+              },
+              {
+                className: 'Core Perspective Courses',
+                values: [4.33, 2.67, 3, 3.67, 4.67, 4.67]
+              }
+            ];
+
+            // Try pulling data from the URL.
+            try {
+              var queryString = window.location.href.match(/\?data=([^?/]+)\/?$/);
+
+              if (queryString) {
+                queryString = queryString[1];
+              }
+
+              data.data = JSON.parse(decodeURIComponent(queryString));
+            } finally {
+              if (!data.data) {
+                data.data = defaultData;
+              }
             }
+
+            // Add permalink
+            function updatePermalink(permalink, data) {
+              permalink.attr('href', window.location.href.replace(/\?[^?]*$/, '') + '?data=' + encodeURIComponent(JSON.stringify(data)));
+            }
+
+            var permalink = $(document.createElement('a')).addClass('navbar-link').text('permalink');
+
+            $('#permalink-container').append(permalink);
+
+            updatePermalink(permalink, data.data);
 
             // Fill table
             var table = $('#data-table tbody');
 
             for (var datumIndex = 0, dataLength = data.data.length; datumIndex < dataLength; datumIndex++) {
-              var row = $(document.createElement('tr'));
+              var row = $(document.createElement('tr')),
+                  loCell, loInput;
 
               row.append($(document.createElement('td')).addClass('series'));
-              row.append($(document.createElement('td')).addClass('learning-objective').text(data.data[datumIndex].className));
+
+              loCell = $(document.createElement('td')).addClass('learning-objective');
+              loInput = $(document.createElement('input')).addClass('form-control').val(data.data[datumIndex].className).data({ type: 'objective', value: { learningObjective: datumIndex } });
+
+              loCell.append(loInput);
+              row.append(loCell);
 
               for (var valueIndex = 0, valueLength = data.data[datumIndex].values.length; valueIndex < valueLength; valueIndex++) {
-                row.append($(document.createElement('td')).text(data.data[datumIndex].values[valueIndex]));
+                var cell = $(document.createElement('td')),
+                    input = $(document.createElement('input')).addClass('form-control').val(data.data[datumIndex].values[valueIndex]).data({ type: 'value', value: { learningObjective: datumIndex, frame: valueIndex } });
+
+                cell.append(input);
+                row.append(cell);
               }
 
               table.append(row)
             }
 
+            $('#data-table').on('change', 'input', function(event) {
+              var item = $(event.target).data(),
+                  value = $(event.target).val();
+
+              if (item.type === 'objective') {
+                if (data.data[item.value.learningObjective]) {
+                  data.data[item.value.learningObjective].className = value;
+                }
+              } else if (item.type === 'value') {
+                if (data.data[item.value.learningObjective] && data.data[item.value.learningObjective].values) {
+                  data.data[item.value.learningObjective].values[item.value.frame] = parseFloat(value);
+                }
+              }
+
+              chart.update(data.data);
+              updatePermalink(permalink, data.data);
+            });
+
             // Make chart
             var svg = d3.select('#chart').append('svg')
             .attr('width', "100%")
-            .attr('height', 800);
+            .attr('height', 600);
 
             config = {
+              width: $('#chart svg').innerWidth(),
               levels: 5,
               sublevels: 3,
               maxValue: 5
