@@ -313,8 +313,21 @@ if (jQuery) {
 
         circles
         .each(function(d) {
-          var classed = { 'd3-exit': 0 }; // if exit element reused
-          classed['radar-chart-series'] = 1;
+          var classed = {
+            'd3-exit': 0, // if exit element reused
+            'radar-chart-series': 1,
+            'radar-chart-series-0': 0,
+            'radar-chart-series-1': 0,
+            'radar-chart-series-2': 0,
+            'radar-chart-series-3': 0,
+            'radar-chart-series-4': 0,
+            'radar-chart-series-5': 0,
+            'radar-chart-series-6': 0,
+            'radar-chart-series-7': 0,
+            'radar-chart-series-8': 0,
+            'radar-chart-series-9': 0,
+            'radar-chart-series-10': 0
+          };
           classed['radar-chart-series-' + d[1]] = 1;
           d3.select(this).classed(classed);
         })
