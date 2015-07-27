@@ -10,6 +10,7 @@ if (jQuery) {
       levels: 3,
       sublevels: 1,
       maxValue: 0,
+      enforceMaxValue: true,
       radians: 2 * Math.PI,
       color: d3.scale.category10(),
       circles: true,
@@ -32,9 +33,13 @@ if (jQuery) {
       // Brief initialization.
       this.gc = {}; // Graphical constants.
 
-      this.gc.maxValue = Math.max(this.config.maxValue, d3.max(this.data, function(d) {
-        return d3.max(d.values);
-      }));
+      if (this.config.enforceMaxValue) {
+        this.gc.maxValue = this.config.maxValue;
+      } else {
+        this.gc.maxValue = Math.max(this.config.maxValue, d3.max(this.data, function(d) {
+          return d3.max(d.values);
+        }));
+      }
 
       this.gc.radius = Math.min(this.config.width / 2, this.config.height / 2);
       this.gc.scaledRadius = this.config.factor * this.gc.radius;
