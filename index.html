@@ -211,8 +211,9 @@
               // Update table values.
               updateTable(table, afterRows, data.data.slice(item.value.learningObjective), item.value.learningObjective);
 
-              // Update chart.
+              // Update chart and permalink.
               chart.update(data.data);
+              updatePermalink(permalink, data.data);
             });
 
             // Add table controls.
