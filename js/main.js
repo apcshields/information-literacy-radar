@@ -1,5 +1,5 @@
 if (jQuery) {
-  var initializeTable, updateTable;
+  var initializeTable, updateTable, addEmptyTableRow;
 
   (function() {
     var updateSeriesMarkers;
@@ -11,45 +11,9 @@ if (jQuery) {
 
     updateTable = function(table, rows, data, offset) {
       if (!rows.length && data.length) { // We have an empty array, so build rows for our data.
-        rows = data.map(function(datum, index) {
-          var row = $(document.createElement('tr')),
-              seriesCell, loCell, loInput, removeRowButton;
+        rows = data.map(buildRow);
 
-          seriesCell = $(document.createElement('td')).addClass('series');
-
-          d3.select(seriesCell[0])
-          .append('svg')
-            .attr('width', 20)
-            .attr('height', 20)
-          .append('path')
-            .classed('circle', 1)
-            .attr('transform', 'translate(10, 10)');
-
-          row.append(seriesCell);
-
-          loCell = $(document.createElement('td')).addClass('learning-objective');
-          loInput = $(document.createElement('input')).addClass('form-control');
-
-          loCell.append(loInput);
-          row.append(loCell);
-
-          removeRowButton = $(document.createElement('button')).addClass('btn btn-default remove-row-button').attr('aria-label', 'Remove row').attr('title', 'Remove row');
-          removeRowButton.append($(document.createElement('span')).addClass('glyphicon glyphicon-minus-sign').attr('aria-hidden', 'true'));
-
-          row.append($(document.createElement('td')).append(removeRowButton));
-
-          datum.values.forEach(function() {
-            var cell = $(document.createElement('td')),
-                input = $(document.createElement('input')).addClass('form-control');
-
-            cell.append(input);
-            row.append(cell);
-          });
-
-          table.append(row);
-
-          return row;
-        });
+        table.append(rows);
 
         updateTable(table, rows, data, offset);
       } else { // We have existing rows which need to be updated.
@@ -75,6 +39,64 @@ if (jQuery) {
 
         updateSeriesMarkers(table);
       }
+    };
+
+    addEmptyTableRow = function(table, data) {
+      var datum, row,
+          offset = data.length;
+
+      datum = {
+        className: '',
+        values: ['', '', '', '', '', '']
+      }
+
+      row = buildRow(datum);
+
+      table.append(row);
+
+      data.push(datum);
+
+      updateTable(table, [row], [datum], offset);
+
+      updateSeriesMarkers(table);
+    };
+
+    buildRow = function(datum) {
+      var row = $(document.createElement('tr')),
+          seriesCell, loCell, loInput, removeRowButton;
+
+      seriesCell = $(document.createElement('td')).addClass('series');
+
+      d3.select(seriesCell[0])
+      .append('svg')
+        .attr('width', 20)
+        .attr('height', 20)
+      .append('path')
+        .classed('circle', 1)
+        .attr('transform', 'translate(10, 10)');
+
+      row.append(seriesCell);
+
+      loCell = $(document.createElement('td')).addClass('learning-objective');
+      loInput = $(document.createElement('input')).addClass('form-control');
+
+      loCell.append(loInput);
+      row.append(loCell);
+
+      removeRowButton = $(document.createElement('button')).addClass('btn btn-default remove-row-button').attr('aria-label', 'Remove row').attr('title', 'Remove row');
+      removeRowButton.append($(document.createElement('span')).addClass('glyphicon glyphicon-minus-sign').attr('aria-hidden', 'true'));
+
+      row.append($(document.createElement('td')).append(removeRowButton));
+
+      datum.values.forEach(function() {
+        var cell = $(document.createElement('td')),
+            input = $(document.createElement('input')).addClass('form-control');
+
+        cell.append(input);
+        row.append(cell);
+      });
+
+      return row;
     };
 
     updateSeriesMarkers = function(table) {

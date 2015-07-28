@@ -221,6 +221,10 @@
 
             $('#data .container-fluid .row').append(tableAddRowButton);
 
+            tableAddRowButton.on('click', function(event) {
+              addEmptyTableRow(table, data.data);
+            });
+
             // Make chart
             var svg = d3.select('#chart').append('svg')
             .attr('width', "100%")
