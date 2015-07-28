@@ -197,7 +197,7 @@
               updatePermalink(permalink, data.data);
             });
 
-            $('.remove-row-button').on('click', function(event) {
+            $('#data-table').on('click', '.remove-row-button', function(event) {
               var item = $(this).data(),
                   row = $(this).parents('tr').first(),
                   afterRows = row.nextAll('tr');
