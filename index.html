@@ -74,8 +74,12 @@
               max-width: 4em;
             }
 
-            .navbar .navbar-right:last-child {
+            .navbar .navbar-right:not(:last-child) {
               margin-right: 0;
+            }
+
+            #permalink {
+              font-weight: 700;
             }
           /* ]]> */
         </style>
@@ -131,6 +135,7 @@
           <div class="container-fluid">
             <p class="navbar-text navbar-left"><small>Andrew Shields &copy;2015 <a href="LICENSE">MIT License</a></small></p>
             <p id="permalink-container" class="navbar-text navbar-right"></p>
+            <p class="navbar-text navbar-right"><a class="navbar-link" href="https://twitter.com/search?q=%23IULILC2015">#IULILC2015</a> <a class="navbar-link" href="https://twitter.com/search?q=%23acrlframework">#acrlframework</a> <a class="navbar-link" href="https://twitter.com/search?q=%23acrlradar">#acrlradar</a></p>
           </div>
         </nav>
 
@@ -198,7 +203,7 @@
               permalink.attr('href', window.location.href.replace(/\?[^?]*$/, '') + '?data=' + encodeURIComponent(JSON.stringify(data)));
             }
 
-            var permalink = $(document.createElement('a')).addClass('navbar-link').text('permalink');
+            var permalink = $(document.createElement('a')).attr('id', 'permalink').text('permalink');
 
             $('#permalink-container').append(permalink);
 
