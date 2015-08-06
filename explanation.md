@@ -55,6 +55,8 @@ By removing the connecting inter-axial lines (and, consequently the shaded areas
 
 This final chart style meets our requirements by providing a straightforward and easily analyzed presentation of the cumulative effect of the learning objectives for a given information literacy instruction session. The strengths and weaknesses of a particular combination of learning objectives from the perspective of the information literacy framework are clearly and distinctively expressed through the single filled area, while the individual learning objectives are still visible for more in-depth analysis. All six axes use the same unit and scale, so that the values are comparable. In short, we have a good chart for quickly illustrating the utility (or lack thereof) of a particular combination of our existing learning objectives to teachers and administrators which is still information-dense enough for our own use as we plan for information literacy instruction opportunities.
 
+If you are interested in experimenting with this style of chart for a similar purpose, I've made [a simple tool][G] for that purpose.
+
 [^f1]: Those librarians called these 'outcomes', a word taken directly from the <cite>Information Literacy Competency Standards</cite>. I'm not sure why we've increasingly referred to them as 'objectives', but I prefer the stronger sense of deliberation and intentionality 'objectives' implies.
 
     For more information about what 'outcomes' and 'objectives' refer to, see the section ["Information Literacy and Assessment"][F] in the ACRL information literacy standards.
@@ -77,3 +79,4 @@ This final chart style meets our requirements by providing a straightforward and
 [D]: http://www.fastcodesign.com/1671897/infographic-the-nbas-best-players-visualized-as-statistical-snowflakes
 [E]: http://www.ramimo.com/
 [F]: http://www.ala.org/acrl/standards/informationliteracycompetency#ilassess
+[G]: https://apcshields.github.io/information-literacy-radar/
