@@ -1,3 +1,9 @@
+---
+title: 'Using radar charts to visualize information literacy objectives in the context of the information literacy framework: Some limitations and variations'
+author: Andrew Shields, librarian, Goshen College
+date: August 6, 2015
+...
+
 We sat around our little table, trying to express how we thought the fitting-together-and-interdependency of the six frames of the ACRL's new(-ish) <cite>[Framework for Information Literacy for Higher Education][A]</cite> changed the way we represented the relationship between our student learning objectives for information literacy and the ACRL's "recommendation". The librarians who originally led the development of our learning objectives had left us with a list of objectives[^f1] for each learning activity, annotated so that each objective was explicitly tied to an outcome or outcomes in the ACRL's older <cite>[Information Literacy Competency Standards for Higher Education][B]</cite>. For instance, those librarians had tied their learning objective:
 
 > Students will determine if retrieved information satisfied need and will refine search if necessary.
@@ -71,7 +77,7 @@ If you are interested in experimenting with this style of chart for a similar pu
 [^f8]: I want to go a step further than this, and say that the framework cultivates a holistic understanding of information literacy _instruction_, but this is something about which my colleagues and I are not completely in agreement. Quite a bit hinges on the exact usage of the word 'holistic'. I mean it, in this case, to indicate an understanding aimed not at discrete skills but at a mindset and a general activity.
 
 [^cite1]: The Harold and Wilma Good Library. (2009, June 10). <cite>Information literacy learning outcomes: Good Library instruction program</cite>. Goshen, IN: Milne.
-[^cite2]: Board of Directors of the Association of College and Research Libraries (ACRL). (2010, February 2). <cite>Framework for information literacy for higher education</cite>. Retrieved from [http://www.ala.org/acrl/standards/ilframework]
+[^cite2]: Board of Directors of the Association of College and Research Libraries (ACRL). (2010, February 2). <cite>Framework for information literacy for higher education</cite>. Retrieved from <http://www.ala.org/acrl/standards/ilframework>
 
 [A]: http://www.ala.org/acrl/standards/ilframework
 [B]: http://www.ala.org/acrl/standards/informationliteracycompetency
